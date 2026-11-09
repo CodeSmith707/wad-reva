@@ -1,0 +1,357 @@
+
+/* CSS Variables */
+
+:root {
+    --primary: #172554;
+    --accent: #f97316;
+    --background: #f1f5f9;
+    --text: #1e293b;
+    --white: #ffffff;
+}
+
+
+/* General Styling */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 75px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: var(--background);
+    color: var(--text);
+}
+
+
+/* Navigation Bar */
+
+nav {
+    background-color: var(--primary);
+    padding: 18px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+nav a {
+    color: var(--white);
+    text-decoration: none;
+    margin: 15px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: var(--accent);
+}
+
+
+/* Header */
+
+header {
+    background-color: var(--primary);
+    color: var(--white);
+    text-align: center;
+    padding: 25px;
+}
+
+header h1 {
+    color: #fbbf24;
+}
+
+
+/* Hero Section */
+
+.hero {
+    background: linear-gradient(135deg, #172554, #2563eb, #0f172a);
+    color: var(--white);
+    text-align: center;
+    padding: 80px 20px;
+    margin: 20px;
+    border-radius: 12px;
+}
+
+.hero h1 {
+    font-size: 36px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+
+/* Buttons */
+
+button {
+    background-color: var(--accent);
+    color: var(--white);
+    border: none;
+    padding: 12px 22px;
+    margin: 5px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #ea580c;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Sections */
+
+section {
+    background-color: var(--white);
+    padding: 30px;
+    margin: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+section h2 {
+    color: var(--primary);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 10px;
+}
+
+
+/* Match Schedule Table */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+th {
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 14px;
+}
+
+td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+    background-color: #fff7ed;
+}
+
+
+/* Form Styling */
+
+form {
+    padding: 15px;
+}
+
+label {
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+input, select {
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    width: 90%;
+    font-size: 14px;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 5px rgba(249, 115, 22, 0.4);
+}
+
+
+/* Booking Form and Summary */
+
+.booking-container {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.booking-form {
+    flex: 2;
+    min-width: 250px;
+}
+
+.summary {
+    flex: 1;
+    min-width: 220px;
+    background-color: #fff7ed;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #fed7aa;
+}
+
+.summary h3 {
+    color: var(--primary);
+}
+
+.summary p {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+}
+
+
+/* My Bookings */
+
+#bookingTable {
+    background-color: var(--white);
+}
+
+#noBookings {
+    text-align: center;
+    color: #64748b;
+    padding: 15px;
+}
+
+
+/* Guidelines Cards */
+
+.card-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: #eff6ff;
+    padding: 22px;
+    flex: 1;
+    min-width: 180px;
+    border-radius: 10px;
+    border-left: 5px solid var(--accent);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+}
+
+.card h3 {
+    color: var(--primary);
+}
+
+
+/* Footer */
+
+footer {
+    background-color: var(--primary);
+    color: var(--white);
+    text-align: center;
+    padding: 25px;
+    margin-top: 30px;
+}
+
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+
+    nav a {
+        display: inline-block;
+        margin: 8px;
+    }
+
+    .booking-container {
+        flex-direction: column;
+    }
+
+    .hero h1 {
+        font-size: 27px;
+    }
+
+    section {
+        margin: 12px;
+        padding: 18px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    th, td {
+        padding: 7px;
+    }
+
+}
+
+
+/* Mobile Screens */
+
+@media (max-width: 480px) {
+
+    nav a {
+        font-size: 13px;
+        margin: 5px;
+    }
+
+    .hero {
+        padding: 45px 15px;
+    }
+
+    .hero h1 {
+        font-size: 23px;
+    }
+
+    input, select {
+        width: 100%;
+    }
+
+}
+
+
+/* Toast Notification */
+
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+
+    background-color: #172554;
+    color: white;
+
+    padding: 15px 25px;
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    opacity: 0;
+    transform: translateY(20px);
+
+    transition: opacity 0.3s ease,
+                transform 0.3s ease;
+
+    z-index: 1000;
+}
+
+/* Toast Visible State */
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
