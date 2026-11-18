@@ -76,56 +76,79 @@ function filterMatches() {
 
 function updateSummary() {
 
+    // Get selected values
+
     var match = document.getElementById("match").value;
 
     var category = document.getElementById("category").value;
 
     var quantity = document.getElementById("quantity").value;
 
-    var total = category * quantity;
 
-    document.getElementById("sumMatch").innerHTML = match || "Not Selected";
+    // Calculate total price
 
-    document.getElementById("sumPrice").innerHTML = category || "0";
+    var total = Number(category) * Number(quantity);
 
-    document.getElementById("sumQuantity").innerHTML = quantity || "0";
 
-    document.getElementById("sumTotal").innerHTML = total || "0";
+    // Determine stand name
+
+    var stand = "Not Selected";
 
     if (category == "1000")
-        document.getElementById("sumStand").innerHTML = "General";
+        stand = "General";
 
     else if (category == "2000")
-        document.getElementById("sumStand").innerHTML = "Premium";
+        stand = "Premium";
 
     else if (category == "3000")
-        document.getElementById("sumStand").innerHTML = "VIP";
+        stand = "VIP";
 
-    else
-        document.getElementById("sumStand").innerHTML = "Not Selected";
+
+    // Update Booking Summary
+
+    document.getElementById("sumMatch").innerHTML =
+        match || "Not Selected";
+
+    document.getElementById("sumStand").innerHTML = stand;
+
+    document.getElementById("sumPrice").innerHTML =
+        category || "0";
+
+    document.getElementById("sumQuantity").innerHTML =
+        quantity || "0";
+
+    document.getElementById("sumTotal").innerHTML =
+        total || "0";
+
+
+    // Show notification
+
+    showToast("Booking summary updated!");
 }
 
 
-// 5. Calculate and Confirm Booking
+// 5. Add Change Event Listeners
+
+document.getElementById("match").addEventListener("change", updateSummary);
+
+document.getElementById("category").addEventListener("change", updateSummary);
+
+document.getElementById("quantity").addEventListener("change", updateSummary);
+
+
+// 6. Calculate and Confirm Booking
 
 function calculateBooking(event) {
 
     event.preventDefault();
 
     var name = document.getElementById("name").value;
-
     var match = document.getElementById("match").value;
-
     var category = document.getElementById("category").value;
-
     var quantity = document.getElementById("quantity").value;
-
     var total = category * quantity;
-
     var stand = document.getElementById("sumStand").innerHTML;
-
     var table = document.getElementById("bookingTable");
-
     var row = table.insertRow();
 
     row.insertCell(0).innerHTML = name;
