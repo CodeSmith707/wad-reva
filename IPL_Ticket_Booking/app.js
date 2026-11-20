@@ -1,44 +1,92 @@
-
 /* =================================
    IPL TICKET BOOKING SYSTEM
-   JavaScript Functionality
+   Activity 8: Responsive Layout
 ================================= */
 
-
-// 1. Reusable Toast Notification Function
-
+// 1. Toast notification
 function showToast(message) {
-
-    let toast = document.createElement("div");
-
+    const toast = document.createElement("div");
     toast.className = "toast";
     toast.textContent = message;
-
     document.body.appendChild(toast);
 
-    setTimeout(() => {
-        toast.classList.add("show");
-    }, 100);
+    requestAnimationFrame(() => toast.classList.add("show"));
 
     setTimeout(() => {
-
         toast.classList.remove("show");
-
-        setTimeout(() => {
-            toast.remove();
-        }, 300);
-
-    }, 3000);
+        setTimeout(() => toast.remove(), 300);
+    }, 2800);
 }
 
 
-// 2. Select Match and Scroll to Booking Form
+// 2. Mobile hamburger navigation
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
 
+menuToggle.addEventListener("click", () => {
+    const isOpen = navLinks.classList.toggle("open");
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+});
+
+// Close the mobile menu after selecting a navigation link.
+navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+    });
+});
+
+
+// 3. Filter match cards by team
+const teamFilter = document.getElementById("teamFilter");
+const matchCards = document.getElementById("matchCards");
+const noMatches = document.getElementById("noMatches");
+
+function filterMatches() {
+    const selectedTeam = teamFilter.value;
+    const cards = matchCards.querySelectorAll(".match-card");
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+        const teams = card.dataset.teams.split(" ");
+        const shouldShow = selectedTeam === "all" || teams.includes(selectedTeam);
+
+        card.hidden = !shouldShow;
+
+        if (shouldShow) {
+            visibleCount++;
+        }
+    });
+
+    noMatches.hidden = visibleCount !== 0;
+}
+
+teamFilter.addEventListener("change", filterMatches);
+
+
+// 4. Toggle between grid and list views
+const gridViewBtn = document.getElementById("gridViewBtn");
+const listViewBtn = document.getElementById("listViewBtn");
+
+function setMatchView(view) {
+    const isList = view === "list";
+
+    matchCards.classList.toggle("list-view", isList);
+    gridViewBtn.classList.toggle("active", !isList);
+    listViewBtn.classList.toggle("active", isList);
+
+    gridViewBtn.setAttribute("aria-pressed", String(!isList));
+    listViewBtn.setAttribute("aria-pressed", String(isList));
+}
+
+gridViewBtn.addEventListener("click", () => setMatchView("grid"));
+listViewBtn.addEventListener("click", () => setMatchView("list"));
+
+
+// 5. Select a match from its card
 function selectMatch(matchName) {
-
     document.getElementById("match").value = matchName;
-
-    updateSummary();
+    updateSummary(false);
 
     document.getElementById("booking").scrollIntoView({
         behavior: "smooth"
@@ -47,125 +95,83 @@ function selectMatch(matchName) {
     showToast(matchName + " selected! Complete your booking.");
 }
 
+document.querySelectorAll(".book-match").forEach(button => {
+    button.addEventListener("click", () => {
+        selectMatch(button.dataset.match);
+    });
+});
 
-// 3. Filter Matches by Team
 
-function filterMatches() {
+// 6. Update booking summary
+function updateSummary(showNotification = true) {
+    const match = document.getElementById("match").value;
+    const category = document.getElementById("category").value;
+    const quantity = Number(document.getElementById("quantity").value) || 0;
 
-    var filter = document.getElementById("teamFilter").value;
+    const price = Number(category) || 0;
+    const total = price * quantity;
 
-    var table = document.getElementById("matchTable");
+    let stand = "Not Selected";
 
-    var rows = table.getElementsByTagName("tr");
+    if (category === "1000") {
+        stand = "General";
+    } else if (category === "2000") {
+        stand = "Premium";
+    } else if (category === "3000") {
+        stand = "VIP";
+    }
 
-    for (var i = 1; i < rows.length; i++) {
+    document.getElementById("sumMatch").textContent = match || "Not Selected";
+    document.getElementById("sumStand").textContent = stand;
+    document.getElementById("sumPrice").textContent = price;
+    document.getElementById("sumQuantity").textContent = quantity;
+    document.getElementById("sumTotal").textContent = total;
 
-        var teams = rows[i].getElementsByTagName("td")[1].innerHTML;
-
-        if (filter == "all" || teams.includes(filter)) {
-            rows[i].style.display = "";
-        }
-        else {
-            rows[i].style.display = "none";
-        }
+    if (showNotification) {
+        showToast("Booking summary updated!");
     }
 }
 
-
-// 4. Update Booking Summary
-
-function updateSummary() {
-
-    // Get selected values
-
-    var match = document.getElementById("match").value;
-
-    var category = document.getElementById("category").value;
-
-    var quantity = document.getElementById("quantity").value;
+document.getElementById("match").addEventListener("change", () => updateSummary());
+document.getElementById("category").addEventListener("change", () => updateSummary());
+document.getElementById("quantity").addEventListener("input", () => updateSummary());
 
 
-    // Calculate total price
-
-    var total = Number(category) * Number(quantity);
-
-
-    // Determine stand name
-
-    var stand = "Not Selected";
-
-    if (category == "1000")
-        stand = "General";
-
-    else if (category == "2000")
-        stand = "Premium";
-
-    else if (category == "3000")
-        stand = "VIP";
-
-
-    // Update Booking Summary
-
-    document.getElementById("sumMatch").innerHTML =
-        match || "Not Selected";
-
-    document.getElementById("sumStand").innerHTML = stand;
-
-    document.getElementById("sumPrice").innerHTML =
-        category || "0";
-
-    document.getElementById("sumQuantity").innerHTML =
-        quantity || "0";
-
-    document.getElementById("sumTotal").innerHTML =
-        total || "0";
-
-
-    // Show notification
-
-    showToast("Booking summary updated!");
-}
-
-
-// 5. Add Change Event Listeners
-
-document.getElementById("match").addEventListener("change", updateSummary);
-
-document.getElementById("category").addEventListener("change", updateSummary);
-
-document.getElementById("quantity").addEventListener("change", updateSummary);
-
-
-// 6. Calculate and Confirm Booking
-
+// 7. Calculate and confirm booking
 function calculateBooking(event) {
-
     event.preventDefault();
 
-    var name = document.getElementById("name").value;
-    var match = document.getElementById("match").value;
-    var category = document.getElementById("category").value;
-    var quantity = document.getElementById("quantity").value;
-    var total = category * quantity;
-    var stand = document.getElementById("sumStand").innerHTML;
-    var table = document.getElementById("bookingTable");
-    var row = table.insertRow();
+    const name = document.getElementById("name").value.trim();
+    const match = document.getElementById("match").value;
+    const category = document.getElementById("category").value;
+    const quantity = Number(document.getElementById("quantity").value);
+    const total = Number(category) * quantity;
 
-    row.insertCell(0).innerHTML = name;
+    let stand = "Not Selected";
+    if (category === "1000") stand = "General";
+    if (category === "2000") stand = "Premium";
+    if (category === "3000") stand = "VIP";
 
-    row.insertCell(1).innerHTML = match;
+    const tableBody = document.getElementById("bookingTableBody");
+    const row = tableBody.insertRow();
 
-    row.insertCell(2).innerHTML = stand;
+    [name, match, stand, quantity, "Rs." + total].forEach(value => {
+        const cell = row.insertCell();
+        cell.textContent = value;
+    });
 
-    row.insertCell(3).innerHTML = quantity;
-
-    row.insertCell(4).innerHTML = "Rs." + total;
-
-    document.getElementById("noBookings").style.display = "none";
-
+    document.getElementById("noBookings").hidden = true;
     showToast("Ticket booked successfully!");
 
     document.getElementById("mybookings").scrollIntoView({
         behavior: "smooth"
     });
+
+    document.getElementById("bookingForm").reset();
+    updateSummary(false);
 }
+
+document.getElementById("bookingForm").addEventListener("submit", calculateBooking);
+
+// Initialise the summary when the page loads.
+updateSummary(false);

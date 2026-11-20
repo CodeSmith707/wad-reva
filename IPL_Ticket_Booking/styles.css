@@ -1,16 +1,12 @@
-
-/* CSS Variables */
-
+/* CSS variables and base styles */
 :root {
     --primary: #172554;
     --accent: #f97316;
     --background: #f1f5f9;
     --text: #1e293b;
     --white: #ffffff;
+    --muted: #64748b;
 }
-
-
-/* General Styling */
 
 * {
     box-sizing: border-box;
@@ -18,106 +14,117 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 75px;
+    scroll-padding-top: 85px;
 }
 
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
-    background-color: var(--background);
+    font-family: Arial, sans-serif;
     color: var(--text);
+    background: var(--background);
+    line-height: 1.5;
 }
 
-
-/* Navigation Bar */
-
-nav {
-    background-color: var(--primary);
-    padding: 18px;
-    text-align: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-}
-
-nav a {
+.site-header {
+    padding: 20px;
     color: var(--white);
-    text-decoration: none;
-    margin: 15px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-nav a:hover {
-    color: var(--accent);
-}
-
-
-/* Header */
-
-header {
-    background-color: var(--primary);
-    color: var(--white);
+    background: var(--primary);
     text-align: center;
-    padding: 25px;
 }
 
-header h1 {
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.site-header h1 {
+    margin: 0;
     color: #fbbf24;
 }
 
+.site-header p {
+    margin: 5px 0 0;
+}
 
-/* Hero Section */
+/* Flexbox navigation */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--primary);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
 
-.hero {
-    background: linear-gradient(135deg, #172554, #2563eb, #0f172a);
+.nav-inner {
+    max-width: 1200px;
+    min-height: 62px;
+    margin: 0 auto;
+    padding: 10px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.nav-brand,
+.brand {
     color: var(--white);
-    text-align: center;
-    padding: 80px 20px;
-    margin: 20px;
-    border-radius: 12px;
-}
-
-.hero h1 {
-    font-size: 36px;
-}
-
-.hero p {
-    font-size: 18px;
-    margin-bottom: 25px;
-}
-
-
-/* Buttons */
-
-button {
-    background-color: var(--accent);
-    color: var(--white);
-    border: none;
-    padding: 12px 22px;
-    margin: 5px;
-    border-radius: 6px;
-    font-size: 15px;
+    text-decoration: none;
     font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+    font-size: 19px;
 }
 
-button:hover {
-    background-color: #ea580c;
-    transform: translateY(-3px);
-    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
 }
 
+.nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s;
+}
 
-/* Sections */
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+.menu-toggle {
+    display: none;
+    padding: 8px;
+    margin: 0;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    background: transparent;
+    box-shadow: none;
+}
+
+.menu-toggle:hover {
+    transform: none;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    margin: 5px 0;
+    background: white;
+}
+
+/* Main content and hero */
+main {
+    width: min(1200px, 100%);
+    margin: 0 auto;
+}
 
 section {
-    background-color: var(--white);
+    margin: 25px 20px;
     padding: 30px;
-    margin: 25px;
     border-radius: 10px;
+    background: var(--white);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
 
@@ -127,82 +134,250 @@ section h2 {
     padding-bottom: 10px;
 }
 
-
-/* Match Schedule Table */
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    overflow: hidden;
-}
-
-th {
-    background-color: var(--primary);
+.hero {
+    padding: 80px 20px;
     color: var(--white);
-    padding: 14px;
-}
-
-td {
-    padding: 12px;
     text-align: center;
-    border-bottom: 1px solid #ddd;
+    background: linear-gradient(135deg, #172554, #2563eb, #0f172a);
 }
 
-tr:hover {
-    background-color: #fff7ed;
+.hero h1 {
+    font-size: clamp(25px, 4vw, 38px);
 }
 
+.hero p {
+    margin-bottom: 25px;
+    font-size: 18px;
+}
 
-/* Form Styling */
+.button-link {
+    display: inline-block;
+    margin: 5px;
+    padding: 12px 22px;
+    border-radius: 6px;
+    color: white;
+    background: var(--accent);
+    text-decoration: none;
+    font-weight: bold;
+}
 
-form {
-    padding: 15px;
+.button-link:hover {
+    background: #ea580c;
+}
+
+.button-secondary {
+    background: #334155;
+}
+
+/* Buttons */
+button {
+    padding: 11px 18px;
+    margin: 5px;
+    border: 0;
+    border-radius: 6px;
+    color: white;
+    background: var(--accent);
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #ea580c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Match filter and view controls */
+.match-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.filter-control {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 label {
-    font-weight: bold;
     display: inline-block;
     margin-top: 10px;
+    font-weight: bold;
 }
 
-input, select {
+input,
+select {
+    width: 100%;
+    max-width: 420px;
     padding: 12px;
-    margin-top: 8px;
-    margin-bottom: 12px;
+    margin: 8px 0 14px;
     border: 1px solid #cbd5e1;
     border-radius: 6px;
-    width: 90%;
+    background: white;
     font-size: 14px;
 }
 
-input:focus, select:focus {
+.filter-control select {
+    width: 150px;
+    margin: 0;
+}
+
+input:focus,
+select:focus {
     outline: none;
     border-color: var(--accent);
     box-shadow: 0 0 5px rgba(249, 115, 22, 0.4);
 }
 
+.view-controls {
+    display: flex;
+    gap: 5px;
+}
 
-/* Booking Form and Summary */
+.view-button {
+    margin: 0;
+    background: #64748b;
+}
 
+.view-button.active {
+    background: var(--primary);
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* CSS Grid match cards */
+.match-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.match-card {
+    min-width: 0;
+    padding: 22px;
+    border: 1px solid #dbeafe;
+    border-radius: 10px;
+    background: #f8fafc;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.match-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+}
+
+.match-card-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.match-number {
+    color: var(--accent);
+}
+
+.match-card h3 {
+    margin: 15px 0;
+    color: var(--primary);
+    font-size: 25px;
+}
+
+.match-card h3 span {
+    color: var(--muted);
+    font-size: 16px;
+}
+
+.ticket-prices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 15px 0;
+}
+
+.ticket-prices span {
+    padding: 6px 9px;
+    border-radius: 5px;
+    background: #e2e8f0;
+    font-size: 13px;
+}
+
+.book-match {
+    width: 100%;
+}
+
+/* List view is toggled by JavaScript */
+.match-grid.list-view {
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.match-grid.list-view .match-card {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1.5fr auto;
+    align-items: center;
+    gap: 12px;
+}
+
+.match-grid.list-view .match-card h3,
+.match-grid.list-view .match-card p,
+.match-grid.list-view .ticket-prices {
+    margin: 5px 0;
+}
+
+.match-grid.list-view .match-card-top {
+    flex-direction: column;
+}
+
+.match-grid.list-view .book-match {
+    width: auto;
+}
+
+.empty-message {
+    padding: 20px;
+    color: var(--muted);
+    text-align: center;
+}
+
+/* Booking form and summary use Flexbox */
 .booking-container {
     display: flex;
+    align-items: flex-start;
     gap: 25px;
-    flex-wrap: wrap;
 }
 
 .booking-form {
     flex: 2;
-    min-width: 250px;
+    min-width: 0;
+}
+
+.booking-form form {
+    padding: 10px;
+}
+
+.booking-form input,
+.booking-form select {
+    display: block;
+    max-width: 100%;
 }
 
 .summary {
     flex: 1;
-    min-width: 220px;
-    background-color: #fff7ed;
+    min-width: 230px;
     padding: 20px;
-    border-radius: 10px;
     border: 1px solid #fed7aa;
+    border-radius: 10px;
+    background: #fff7ed;
+    overflow-wrap: anywhere;
 }
 
 .summary h3 {
@@ -210,148 +385,228 @@ input:focus, select:focus {
 }
 
 .summary p {
-    border-bottom: 1px solid #ddd;
     padding-bottom: 8px;
+    border-bottom: 1px solid #ddd;
 }
 
+/* Booking history table */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
 
-/* My Bookings */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
 
-#bookingTable {
-    background-color: var(--white);
+th {
+    padding: 14px;
+    color: white;
+    background: var(--primary);
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+tbody tr:hover {
+    background: #fff7ed;
 }
 
 #noBookings {
-    text-align: center;
-    color: #64748b;
     padding: 15px;
+    color: var(--muted);
+    text-align: center;
 }
 
-
-/* Guidelines Cards */
-
+/* Three-column CSS Grid guidelines */
 .card-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
-    flex-wrap: wrap;
 }
 
-.card {
-    background-color: #eff6ff;
+.guideline-card {
     padding: 22px;
-    flex: 1;
-    min-width: 180px;
-    border-radius: 10px;
     border-left: 5px solid var(--accent);
-    transition: 0.3s;
+    border-radius: 10px;
+    background: #eff6ff;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.card:hover {
+.guideline-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
 }
 
-.card h3 {
+.guideline-card h3 {
     color: var(--primary);
 }
 
-
 /* Footer */
-
 footer {
-    background-color: var(--primary);
-    color: var(--white);
-    text-align: center;
-    padding: 25px;
     margin-top: 30px;
+    padding: 25px;
+    color: white;
+    background: var(--primary);
+    text-align: center;
 }
 
+/* Toast notification */
+.toast {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    z-index: 1000;
+    padding: 15px 22px;
+    border-radius: 8px;
+    color: white;
+    background: var(--primary);
+    font-size: 14px;
+    font-weight: bold;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.3s, transform 0.3s;
+}
 
-/* Responsive Design */
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-@media (max-width: 768px) {
+/* Tablet layout */
+@media (max-width: 900px) {
+    .match-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 
-    nav a {
-        display: inline-block;
-        margin: 8px;
+    .card-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .booking-container {
         flex-direction: column;
     }
 
-    .hero h1 {
-        font-size: 27px;
-    }
-
-    section {
-        margin: 12px;
-        padding: 18px;
-    }
-
-    table {
-        font-size: 12px;
-    }
-
-    th, td {
-        padding: 7px;
-    }
-
-}
-
-
-/* Mobile Screens */
-
-@media (max-width: 480px) {
-
-    nav a {
-        font-size: 13px;
-        margin: 5px;
-    }
-
-    .hero {
-        padding: 45px 15px;
-    }
-
-    .hero h1 {
-        font-size: 23px;
-    }
-
-    input, select {
+    .booking-form,
+    .summary {
         width: 100%;
     }
 
+    .match-grid.list-view .match-card {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
+/* Mobile navigation and single-column layouts */
+@media (max-width: 600px) {
+    html {
+        scroll-padding-top: 70px;
+    }
 
-/* Toast Notification */
+    .site-header {
+        padding: 16px 12px;
+    }
 
-.toast {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
+    .site-header h1 {
+        font-size: 22px;
+    }
 
-    background-color: #172554;
-    color: white;
+    .site-header p {
+        font-size: 13px;
+    }
 
-    padding: 15px 25px;
-    border-radius: 8px;
+    .nav-inner {
+        min-height: 58px;
+        flex-wrap: wrap;
+    }
 
-    font-size: 15px;
-    font-weight: bold;
+    .menu-toggle {
+        display: block;
+    }
 
-    opacity: 0;
-    transform: translateY(20px);
+    .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 0;
+    }
 
-    transition: opacity 0.3s ease,
-                transform 0.3s ease;
+    .nav-links.open {
+        display: flex;
+    }
 
-    z-index: 1000;
-}
+    .nav-links a {
+        padding: 12px 5px;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
 
-/* Toast Visible State */
+    section {
+        margin: 14px 10px;
+        padding: 20px 16px;
+    }
 
-.toast.show {
-    opacity: 1;
-    transform: translateY(0);
+    .hero {
+        padding: 48px 15px;
+    }
+
+    .hero p {
+        font-size: 15px;
+    }
+
+    .match-toolbar,
+    .filter-control {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .filter-control select {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .view-controls button {
+        flex: 1;
+    }
+
+    .match-grid,
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+
+    .match-grid.list-view .match-card {
+        display: block;
+    }
+
+    .match-grid.list-view .match-card-top {
+        flex-direction: row;
+    }
+
+    .match-grid.list-view .book-match {
+        width: 100%;
+    }
+
+    .booking-form form {
+        padding: 0;
+    }
+
+    th,
+    td {
+        padding: 9px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    .toast {
+        right: 12px;
+        bottom: 12px;
+        left: 12px;
+        text-align: center;
+    }
 }
