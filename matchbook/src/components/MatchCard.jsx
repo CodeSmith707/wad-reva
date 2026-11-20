@@ -1,8 +1,28 @@
 import React, { useState } from "react";
 
-function MatchCard({ team1, team2, date, venue, ticketPrice }) {
-  // Each card manages its own booking count independently.
-  const [bookingCount, setBookingCount] = useState(0);
+function MatchCard({
+  id,
+  team1,
+  team2,
+  date,
+  venue,
+  ticketPrice,
+  availableSeats,
+  onBook,
+  isBooking,
+}) {
+  const [customerName, setCustomerName] = useState("");
+  const [seatQuantity, setSeatQuantity] = useState("1");
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const booked = await onBook(id, customerName, Number(seatQuantity));
+
+    if (booked) {
+      setCustomerName("");
+      setSeatQuantity("1");
+    }
+  }
 
   return (
     <article className="match-card">
@@ -30,23 +50,57 @@ function MatchCard({ team1, team2, date, venue, ticketPrice }) {
           </span>
           {venue}
         </p>
+        <p>
+          <span className="detail-icon" aria-hidden="true">
+            ♧
+          </span>
+          {availableSeats} seats available
+        </p>
       </div>
-      <div className="card-bottom">
-        <div className="price">
-          <span>Tickets from</span>
-          <strong>${ticketPrice}</strong>
+      <form className="booking-form" onSubmit={handleSubmit}>
+        <label>
+          Your name
+          <input
+            type="text"
+            value={customerName}
+            onChange={(event) => setCustomerName(event.target.value)}
+            placeholder="Enter your name"
+            autoComplete="name"
+            maxLength={100}
+            required
+            disabled={availableSeats === 0 || isBooking}
+          />
+        </label>
+        <label>
+          Seats
+          <input
+            type="number"
+            min="1"
+            max={availableSeats}
+            value={seatQuantity}
+            onChange={(event) => setSeatQuantity(event.target.value)}
+            required
+            disabled={availableSeats === 0 || isBooking}
+          />
+        </label>
+        <div className="card-bottom">
+          <div className="price">
+            <span>Ticket price</span>
+            <strong>₹{ticketPrice}</strong>
+          </div>
+          <button
+            className="button button-book"
+            type="submit"
+            disabled={availableSeats === 0 || isBooking}
+          >
+            {availableSeats === 0
+              ? "Sold Out"
+              : isBooking
+                ? "Booking..."
+                : "Book Now"}
+          </button>
         </div>
-        <button
-          className="button button-book"
-          type="button"
-          onClick={() => setBookingCount((count) => count + 1)}
-        >
-          Book Now
-        </button>
-      </div>
-      <p className="booking-count" aria-live="polite">
-        {bookingCount} {bookingCount === 1 ? "booking" : "bookings"} made
-      </p>
+      </form>
     </article>
   );
 }

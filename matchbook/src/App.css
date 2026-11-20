@@ -318,6 +318,40 @@ p {
   line-height: 1.45;
 }
 
+.booking-form {
+  display: grid;
+  gap: 12px;
+}
+
+.booking-form label {
+  display: grid;
+  gap: 6px;
+  color: #53625c;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.booking-form input {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 11px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.84rem;
+}
+
+.booking-form input:focus {
+  border-color: var(--green);
+  outline: 2px solid rgba(23, 107, 75, 0.14);
+}
+
+.booking-form input:disabled {
+  background: #f2f4f1;
+  color: #849089;
+}
+
 .detail-icon {
   flex: 0 0 15px;
   color: var(--green);
@@ -362,10 +396,30 @@ p {
   box-shadow: 0 5px 12px rgba(23, 107, 75, 0.2);
 }
 
-.booking-count {
-  margin: 12px 0 0;
-  color: #829089;
-  font-size: 0.7rem;
+.button-book:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+}
+
+.app-message {
+  margin: 14px 0 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.app-message.error {
+  color: #a23832;
+}
+
+.app-message.success {
+  color: var(--green);
+}
+
+.matches-state {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted);
 }
 
 .bookings-note {
@@ -443,6 +497,10 @@ p {
 }
 
 @media (max-width: 600px) {
+  .matches-state {
+    grid-column: auto;
+  }
+
   .navbar {
     min-height: 66px;
     padding: 0 18px;
